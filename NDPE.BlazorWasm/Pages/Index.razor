@@ -1,0 +1,41 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<h1>Welcome the NDPE Blazor SPA Example</h1>
+<p>NDPE is .Net Design Patterns for web design Experiments applications.</p>
+
+<p>
+    <br />   This time we have developed a SPA application.
+    <br />   The biggest advantage of Blazor is that it can dynamically run csharp. In this way, we can update the foreach in razor in operations such as delete add etc. using c# directly without writing javascript.
+    <br />
+    <br />   We can update the model directly with two way binding.
+    <br />   Unfortunately, since there are no concepts like observer, we need to follow the state updates manually. For this, we call the StateHasChanged method.
+    <br />
+    <br />   We can update the main component by updating the state in the parent event by outputting an event from inside the components to the outside.
+    <br />
+    <br />   Honestly, even though I know that it can trigger the parameter set event and update the state when objects are given as parameters without Observer, I have not seen this working properly.
+    <br />
+    <br />   Let's talk about the problems, when you don't atomize the components, things start to get very complicated, strangely atomizing makes many things easier.
+    <br />   I mean, if I didn't separate todo list and todoItem, the method I would write to update the todo would become complicated.
+    <br />
+    <br />   Unfortunately, Blazor still can't provide a stable development environment even in .NET 7.
+    <br />   I started to get some errors when I tried to use InputChecked etc instead of html input, and running code when the object changes in two way binding was only one of the examples that worked for me.
+    <br />
+    <br />   If you don't want to use Blazor for compatibility, there is also an SSR version, so it will work in all browsers since the server will take care of the rendering part.
+    <br />
+    <br />   At this point, if we proceed with the Shared Razor Files pattern, we can also prepare a MAUI Blazor version of the project and release it to all platforms.
+    <br />   Maybe one day we can make an example of this.
+
+    <br />   In this way, when using dynamic c# in an atomized structure and html, of course, modal usage, search, filtering, etc. becomes incredibly easy.
+    <br />   You also start to relax on issues such as validation etc.
+
+
+    <br />   Each component is self-contained, pages are dynamic, web service communication becomes easy.
+    <br />
+    <br />   The problems are experienced at bigger points. For example, in the use of nested components, when one of the top components needs to be updated, the operation that needs to be done should be simpler than moving methods and updating states.
+    <br />   In addition, when you build a dynamic structure, it is very easy to extract the code from the components and use the objects from the components and use them in the services and develop them in this way and give them with dependency and you have a very easy and smooth project, but if the data in a service injected with DI is updated asynchronously, I wish you good luck when 12 components need to be updated.
+    <br />
+</p>
+
+

@@ -1,0 +1,109 @@
+﻿@page
+@model NDPE.RazorPagesPageModel.Pages.TodoTestModel
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@functions{
+    public string GetAntiXsrfRequestToken()
+    {
+        return Xsrf.GetAndStoreTokens(Model.HttpContext).RequestToken;
+    }
+}
+
+<!--This ajax -->
+
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-lg-8">
+            <h1 class="mb-3">Todo List Ajax Version</h1>
+
+            <p>
+                <br /> With this ajax example, content can be added and deleted without refreshing the page.
+                <br /> I didn't want to deal with writing those parts for this experiment (but MVC Example has ajax and also AlpineJS),
+                <br /> but instead of page refresh codes, you can create an element with js and add it or capture and delete it from the id of the added element,
+                <br /> so it can be used without refreshing the page.
+            </p>
+            <div class="list-group">
+                <!--This are rendered via Server Side soo it's not gonna re render, needed to be more js. work-->
+                @foreach (var todo in await Model.Todos())
+                {
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1" contenteditable="true">@todo.Name</h5>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="@todo.Id" @(todo.IsComplete ? "checked" : "")>
+                                <label class="form-check-label" for="@todo.Id">Job Done</label>
+                            </div>
+                        </div>
+                        <p class="mb-1 small text-muted">Created on @todo.CreatedTime.ToString("MMMM d, yyyy")</p>
+                        <button class="btn btn-danger"
+                                onclick="confirm('Are you sure you want to delete this todo?') && Remove(@todo.Id)">
+                            Remove
+                        </button>
+                    </div>
+                }
+
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <h3 class="mb-3">Add Todo</h3>
+            <form method="post">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="todoName">Name</label>
+                            <input type="text" class="form-control" id="todoName" name="Name">
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="Add()">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+
+        $('input[type="checkbox"]').on('change', function () {
+            var todoId = $(this).attr('id');
+    var isDone = $(this).is(':checked');
+
+        $.ajax({
+            url: '/Todo?handler=MarkAsDone',
+            type: 'post',
+            data: { id: todoId, isDone: isDone },
+           headers: { "RequestVerificationToken": '@GetAntiXsrfRequestToken()' },
+            dataType: 'json',
+            complete: function () {
+            }
+        });
+
+     });
+
+        function Remove(_id) {
+         $.ajax({
+            url: '/Todo?handler=RemoveTodo',
+            type: 'post',
+            data: { id: _id },
+            headers: { "RequestVerificationToken": '@GetAntiXsrfRequestToken()' },
+            dataType: 'json',
+             complete: function () {
+                location.reload();
+            }
+        });
+        }
+
+        function Add() {
+            var name = todoName.value;
+         $.ajax({
+            url: '/Todo?handler=Add',
+            type: 'post',
+             data: { Name: name },
+            headers: { "RequestVerificationToken": '@GetAntiXsrfRequestToken()' },
+            dataType: 'json',
+             complete: function () {
+                location.reload();
+            }
+        });
+        };
+    </script>
+}

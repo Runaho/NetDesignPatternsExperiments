@@ -1,0 +1,49 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<section class="vh-100">
+    <div class="container py-5 h-100">
+        <h1>Welcome the NDPE Razor Pages Page Model Example</h1>
+        <p>NDPE is .Net Design Patterns for web design Experiments applications.</p>
+
+        <br />
+        <p>You can use top menu for test's</p>
+        <p>
+            Let me talk about what we tested in these tests.
+        </p>
+        <p>
+            First, we connected the api and our model with the Shared project.
+        </p>
+        <p>
+            Razor Pages Page Model is actually almost the same as MVC, again controllers are used, but differently each page has its own controller and the model is the controller of the page itself.
+        </p>
+        <p>
+            The advantage of this is that all the objects you define on the page are accessible with the cshtml of the page, including methods.
+        </p>
+        <p>
+            Two way binding is also supported, so you can bind objects and you don't have to worry about sending those objects again and accessing them from the parameter.
+        </p>
+        <p>
+            Of course, it is not an MVVM or SPA, don't expect it to be fully reactive.
+        </p>
+        <p>
+            We have three tests.
+        </p>
+        <p>
+            The first one is /todos/index which you can access from the first menu. Here we do crud operations on a single page.
+        </p>
+        <p>
+            Our second example is the link /todo where we do the same operations with ajax. Obviously this is a method that is constantly used in razor and mvc.
+        </p>
+        <p>
+            The third is the MVC and Pages Design pattern that you can access with Todos/add Todos/update, which is both recommended by microsoft and generally recommended.
+        </p>
+        <p>You create a folder, list it with Index, do the crud operations related to the add update remove files and you will have a proper structure.
+
+
+
+    </div>
+</section>

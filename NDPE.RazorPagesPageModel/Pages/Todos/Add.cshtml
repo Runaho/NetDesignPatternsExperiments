@@ -1,0 +1,24 @@
+﻿@page
+@model NDPE.RazorPagesPageModel.Pages.Todos.AddModel
+@{
+    ViewData["Title"] = "Add new Todo";
+}
+
+<form method="post" class="col-6">
+    <div>
+        <label>Name</label>
+        <input asp-for="todo.Name" class="form-control" />
+        <span asp-validation-for="todo.Name"></span>
+    </div>
+    <br />
+    <br />
+    <div>
+        <label>Is Completed</label>
+        <input asp-for="todo.IsComplete" type="checkbox">
+        <span asp-validation-for="todo.IsComplete"></span>
+    </div>
+
+    <div style="text-align: right;">
+        <input type="submit" class="btn btn-success" value="Add" />
+    </div>
+</form>

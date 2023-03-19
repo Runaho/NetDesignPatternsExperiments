@@ -1,0 +1,54 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1705.2
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDPE.API", "NDPE.API\NDPE.API.csproj", "{71C7F19A-E5BB-45B3-90C9-77313F8B63EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDPE.MVC", "NDPE.MVC\NDPE.MVC.csproj", "{88510708-8A2E-43BF-8E59-D30B31AA8048}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDPE.BlazorWasm", "NDPE.BlazorWasm\NDPE.BlazorWasm.csproj", "{2B18B39E-0BC9-4FB0-A507-B9164D8A3664}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDPE.RazorPagesPageModel", "NDPE.RazorPagesPageModel\NDPE.RazorPagesPageModel.csproj", "{E76F1FFC-E985-4827-81CC-F08EB1024794}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NDPE.Shared", "NDPE.Shared\NDPE.Shared.csproj", "{E15E67C5-435F-4E49-9FC3-7485610480DC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D515F860-48CB-46AE-9CDF-50C8A0B105E7}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{71C7F19A-E5BB-45B3-90C9-77313F8B63EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71C7F19A-E5BB-45B3-90C9-77313F8B63EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71C7F19A-E5BB-45B3-90C9-77313F8B63EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71C7F19A-E5BB-45B3-90C9-77313F8B63EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88510708-8A2E-43BF-8E59-D30B31AA8048}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88510708-8A2E-43BF-8E59-D30B31AA8048}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88510708-8A2E-43BF-8E59-D30B31AA8048}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88510708-8A2E-43BF-8E59-D30B31AA8048}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B18B39E-0BC9-4FB0-A507-B9164D8A3664}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B18B39E-0BC9-4FB0-A507-B9164D8A3664}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B18B39E-0BC9-4FB0-A507-B9164D8A3664}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B18B39E-0BC9-4FB0-A507-B9164D8A3664}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E76F1FFC-E985-4827-81CC-F08EB1024794}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E76F1FFC-E985-4827-81CC-F08EB1024794}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E76F1FFC-E985-4827-81CC-F08EB1024794}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E76F1FFC-E985-4827-81CC-F08EB1024794}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E15E67C5-435F-4E49-9FC3-7485610480DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E15E67C5-435F-4E49-9FC3-7485610480DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E15E67C5-435F-4E49-9FC3-7485610480DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E15E67C5-435F-4E49-9FC3-7485610480DC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8FCA17C6-B997-4F19-B097-2FC6E08AE1F7}
+	EndGlobalSection
+EndGlobal

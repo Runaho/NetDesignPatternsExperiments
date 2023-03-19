@@ -1,0 +1,94 @@
+﻿@page
+@model NDPE.RazorPagesPageModel.Pages.Todos.IndexModel
+@{
+    ViewData["Title"] = "Todo's";
+}
+
+<section class="vh-100">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+                <div class="card" id="list1" style="border-radius: .75rem; background-color: #eff1f2;">
+                    <div class="card-body py-4 px-4 px-md-5">
+                        <p style="display:none;">
+                            <br />While using asp-handler's and form's with transfering & processing data's with bindings
+                            <br />Your url's will be change like this : Todos?handler=TodoAdd
+                            <br />There is an problem with this approach you shouldn't use history back everythings will be broken becouse
+                            <br />browser can re-send the form data.
+                            <br />There is soo many approach's will fix this problem.
+                            <br />First one form element's can be have id & values (Route Data)
+                            <br />Second whole list can be in one form & onclick send's the clicked id.
+                            <br />Third is Jquery ajax request's on onchange event.
+                            <br />I'm not gonna Demonstrade these versions because frankly, I think these methods are a way around the problem. It's not a real solution.
+                            <br />Unfortunately, RazorPages, like MVC, fails in areas like this where a dynamic component is required.
+                        </p>
+
+                        <form method="post" asp-page-handler="TodoAdd">
+
+                            <div class="pb-2">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <input type="text" class="form-control form-control-lg" name="todo"
+                                                   placeholder="Add new...">
+                                            <div>
+                                                <button type="submit" class="btn btn-primary">Add</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <hr class="my-4">
+
+
+                        @if (Model.Todos.Any())
+                        {
+                            @foreach (var todo in Model.Todos)
+                            {
+                                <form method="post" asp-page-handler="TodoUpdate" name="@($"UpdateTodo{todo.Id}")">
+
+                                    <ul class="list-group list-group-horizontal rounded-0 bg-transparent">
+                                        <li class="list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-transparent">
+                                            <div class="form-check">
+                                                <input type="hidden" name="id" value="@todo.Id" />
+                                                <input class="form-check-input me-0" type="checkbox" name="status"
+                                                       aria-label="..." @(todo.IsComplete ? "checked" : string.Empty) onchange="@($"UpdateTodo{todo.Id}.submit();")" />
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent">
+                                            <p class="lead fw-normal mb-0">@todo.Name</p>
+                                        </li>
+                                        <li class="list-group-item ps-3 pe-0 py-1 rounded-0 border-0 bg-transparent">
+                                            <div class="d-flex flex-row justify-content-end mb-1">
+                                                <a asp-page="/Todos/Update" asp-route-id="@todo.Id">
+                                                    <i class="fas fa-pencil-alt me-3"></i>
+                                                </a>
+
+                                                <a asp-page="/Todos/Delete" asp-route-id="@todo.Id" class="text-danger">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </a>
+                                            </div>
+                                            <div class="text-end text-muted">
+                                                <a href="#!" class="text-muted">
+                                                    <p class="small mb-0"><i class="fas fa-info-circle me-2"></i>@todo.CreatedTime.ToShortTimeString()</p>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    </ul>
+
+                                </form>
+
+                            }
+                        }
+                        else
+                        {
+                            <a asp-page="/Todos/Add">Please add some todos.</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

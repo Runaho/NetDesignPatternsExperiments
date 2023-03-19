@@ -1,0 +1,41 @@
+﻿@page "/Todos"
+
+<PageTitle>Todos</PageTitle>
+
+<h1>Dynamic Todo Component</h1>
+
+<section>
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+                <div class="card" id="list1" style="border-radius: .75rem; background-color: #eff1f2;">
+                    <div class="card-body py-4 px-4 px-md-5">
+                        <div class="pb-2">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex flex-row align-items-center">
+                                       <TodoCreate OnClickCallback="() => UpdateTodos()"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        @if (_Todos.Any())
+                        {
+                            @foreach (var todo in _Todos)
+                            {
+                                <TodoItem todo="todo" OnUpdateCallback="() => UpdateTodos()"/>
+                            }
+                        }
+                        else
+                        {
+                            <p>Please add some todos.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

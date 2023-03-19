@@ -1,0 +1,27 @@
+﻿@using NDPE.Shared.Services
+@using NDPE.Shared.Models
+<InputText @bind-Value="todo.Name" class="form-control form-control-lg"
+       placeholder="Add new..."/>
+<div>
+        <a @onclick="async ()=> await AddTodo()" class="btn btn-primary">Add</a>
+</div>
+
+@code {
+
+    [Inject]
+    public ITodoService todoService { get; set; }
+
+    [Parameter]
+    public Todo todo { get; set; } = new Todo();
+
+    [Parameter]
+    public EventCallback OnClickCallback { get; set; }
+
+    public async Task AddTodo() {
+        await todoService.InsertTodoAsync(todo);
+        todo = new Todo();
+        await OnClickCallback.InvokeAsync();
+        StateHasChanged();
+    }
+}
+

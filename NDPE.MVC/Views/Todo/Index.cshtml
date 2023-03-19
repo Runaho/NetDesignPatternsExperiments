@@ -1,0 +1,45 @@
+﻿@using NDPE.MVC.Controllers
+@model List<TodoItem>
+
+<h2>Todo List With Razor Foreach & Jquery</h2>
+
+<ul>
+    @foreach (var todoItem in Model)
+    {
+        <li>
+            <span class="title form-control" contenteditable="true">@todoItem.Title</span>
+            <span class="is-done" data-id="@todoItem.Id">@todoItem.IsDone</span>
+            <button class="remove-button" data-id="@todoItem.Id">Remove</button>
+        </li>
+    }
+</ul>
+
+@section scripts {
+    <script>$(function () {
+            $('span.title').on('blur', function () {
+                var $this = $(this);
+                var id = $this.closest('li').find('.remove-button').data('id');
+                var title = $this.text();
+                var isDone = $this.closest('li').find('.is-done').text();
+                $.post('/Todo/Edit', { id: id, title: title, isDone: isDone }, function (data) {
+                    if (data.success) {
+                        console.log('Item updated');
+                    } else {
+                        console.error('Item update failed');
+                    }
+                });
+            });
+            $('.remove-button').on('click', function () {
+                var $this = $(this);
+                var id = $this.data('id');
+                $.post('/Todo/Remove', { id: id }, function (data) {
+                    if (data.success) {
+                        $this.closest('li').remove();
+                        console.log('Item removed');
+                    } else {
+                        console.error('Item removal failed');
+                    }
+                });
+            });
+        });</script>
+}

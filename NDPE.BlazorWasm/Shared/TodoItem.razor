@@ -1,0 +1,51 @@
+﻿@using NDPE.Shared.Services
+@using NDPE.Shared.Models
+
+<ul class="list-group list-group-horizontal rounded-0 bg-transparent">
+    <li class="list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-transparent">
+        <div class="form-check">
+            <input type="checkbox" @bind="@todo.IsComplete" @bind:after="async () => await Update()" class="form-check-input me-0" />
+        </div>
+    </li>
+    <li class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent">
+        <input class="lead fw-normal mb-0" @bind="@todo.Name" @bind:after="async () => await Update()"/>
+    </li>
+    <li class="list-group-item ps-3 pe-0 py-1 rounded-0 border-0 bg-transparent">
+        <div class="d-flex flex-row justify-content-end mb-1">
+            <a @onclick="async () => await Remove()" class="text-danger">
+                <i class="fas fa-trash-alt"></i>
+            </a>
+        </div>
+        <div class="text-end text-muted">
+            <a class="text-muted">
+                <p class="small mb-0"><i class="fas fa-info-circle me-2"></i>@todo.CreatedTime.ToShortTimeString()</p>
+            </a>
+        </div>
+    </li>
+</ul>
+
+@code {
+
+    [Inject]
+    public ITodoService todoService { get; set; }
+
+    [Parameter]
+    public Todo todo { get; set; } = new Todo();
+
+    [Parameter]
+    public EventCallback OnUpdateCallback { get; set; }
+
+    public async Task Update()
+    {
+        await todoService.UpdateTodoAsync(todo);
+        await OnUpdateCallback.InvokeAsync();
+    }
+
+    public async Task Remove()
+    {
+        await todoService.RemoveTodoAsync(todo.Id);
+        await OnUpdateCallback.InvokeAsync();
+    }
+
+}
+

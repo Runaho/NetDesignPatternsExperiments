@@ -1,0 +1,81 @@
+﻿@{
+    ViewBag.Title = "Todo List";
+}
+
+<div class="container" x-data="todoList()">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h2>Todo List On Alpine JS & Axios and Fetch API</h2>
+            <form x-on:submit.prevent="addTodo" align="center">
+                <div class="form-group row">
+                    <label for="todoName" class="col-3">New Todo:</label>
+                    <div class="col-6">
+                        <input type="text" class="form-control" id="todoName" x-model="newTodoName">
+                    </div>
+                    <button type="submit" class="btn btn-primary col-3">Add Todo</button>
+                </div>
+            </form>
+            <hr>
+            <ul class="list-group" x-data="todos" x-init="todos = await (await fetch('/api/TodoAPI')).json()">
+                <template x-for="todo in todos" :key="todo.id">
+                    <li class="list-group-item">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" :id="'todo-' + todo.id" x-model="todo.isComplete" x-on:click="toggleTodo(todo)">
+                            <label class="form-check-label" :for="'todo-' + todo.id">
+                                <input class="form-control" x-model="todo.name" x-on:change.debounce.500ms="updateTodo(todo)" />
+                            </label>
+                            <span class="btn btn-danger" x-on:click="removeTodo(todo)"> Remove </span>
+                        </div>
+                    </li>
+                </template>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>function todoList() {
+            return {
+                todos: [],
+                newTodoName: '',
+                addTodo() {
+                    if (this.newTodoName.trim() === '') {
+                        return;
+                    }
+
+                    axios.post('/api/TodoAPI', {
+                        Name: this.newTodoName.trim(),
+                        isComplete: false
+                    }).then(response => {
+                        this.todos.push(response.data);
+                        this.newTodoName = '';
+                    });
+                },
+                toggleTodo(todo) {
+                    axios.put('/api/TodoAPI/' + todo.id, {
+                        Name: todo.name,
+                        isComplete: !todo.isComplete
+                    }).then(response => {
+                        //todo.isCompleted = response.data.isComplete;
+                    });
+                },
+                updateTodo(todo) {
+                    axios.put('/api/TodoAPI/' + todo.id, {
+                        Name: todo.name,
+                        isComplete: todo.isComplete
+                    });
+                },
+                removeTodo(todo) {
+                    axios.delete('/api/TodoAPI/' + todo.id, {
+                        Name: todo.name,
+                        isComplete: todo.isComplete
+                    }).then(response => {
+                        this.todos = this.todos.filter(item => item.id != todo.id);
+                    });
+                }
+            };
+        }</script>
+}
